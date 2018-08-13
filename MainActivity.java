@@ -1,5 +1,6 @@
 package com.example.m0z.alarmclock;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,36 +8,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity{
 
-public class MainActivity extends AppCompatActivity {
-
-    TimePickerDialogFragment timeFragment;
     ListView listView;
-    List<ListItem> data;
-    ListItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (ListView)findViewById(R.id.alarmList);
-        data = new ArrayList<ListItem>();
-        AlarmListAdapter lad = new AlarmListAdapter(this, R.id.txtTime, data);
-        listView.setAdapter(lad);
-
-        String strAlarm = getAlarm("08:00");
-        data.add(item);
-
-    }
-
-    private String getAlarm(String alarm){
-        item = new ListItem();
-        item.setData(alarm);
-
-        return alarm;
     }
 
     /**
@@ -61,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.createAlarm:
-                TimePickerDialogFragment timePicker = new TimePickerDialogFragment();
-                timePicker.show(getFragmentManager(), "timePicker");
+                Intent intent = new Intent(getApplication(), AlarmSet.class);
+                startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
